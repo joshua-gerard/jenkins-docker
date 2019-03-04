@@ -2,9 +2,9 @@
 FROM jenkins/jenkins:latest
  
 # Installing the plugins we need using the in-built install-plugins.sh script
-COPY plugins.txt /usr/share/jenkins/plugins.txt
+COPY master/plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
- 
+
 # Setting up environment variables for Jenkins admin user
 ENV JENKINS_USER admin
 ENV JENKINS_PASS admin
@@ -13,7 +13,7 @@ ENV JENKINS_PASS admin
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
  
 # Start-up scripts to set number of executors and creating the admin user
-COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/
-COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
+COPY master/executors.groovy /usr/share/jenkins/ref/init.groovy.d/
+COPY master/default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
  
 VOLUME /var/jenkins_home
